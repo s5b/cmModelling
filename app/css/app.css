@@ -1,0 +1,295 @@
+/* app css stylesheet */
+
+body {
+    margin:0;
+    border: none;
+    padding:0;
+    color: #666;
+    font-family: sans-serif;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+nav {
+    margin: 1em 0 0 0;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 1em 5em 0 5em;
+    background-color: #99f;
+    height: 4em;
+}
+
+nav ul {
+    float: left;
+    margin: 29px 0 0 0;
+}
+
+nav ul li {
+    float: left;
+    margin: 0 3px 0 0;
+    /*border-bottom: 1px solid black;*/
+    padding: 0.6em 1em 0.5em 1em;
+    background-color: #ccf;
+    cursor: pointer;
+}
+
+nav ul li.selected {
+    background-color: #f9f9ff;
+    border: 1px solid black;
+    border-bottom-color: #f9f9ff;
+    font-weight: bold;
+}
+
+#addTabs {
+    float: left;
+    margin-left: 2em;
+}
+
+#editControls {
+    float: right;
+}
+
+#editControls button {
+    width: 7em;
+}
+
+#dataModal {
+    display: none;
+}
+
+section#content {
+    margin: 0 5em 3em 5em;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 0;
+    background-color: #f9f9ff;
+    min-height: 15em;
+}
+
+article {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.categoryContainer {
+    float: left;
+    width: 11em;
+    min-height: 15em;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0ff;
+}
+
+.categoryContainer ul li {
+    padding: 1em;
+    text-align: center;
+    font-size: 0.9em;
+    border-bottom: 1px solid #aaa;
+    background-color: #e7e7ff;
+}
+
+.categoryContainer ul li.selected {
+    background-color: #f9f9ff;
+    font-weight: bold;
+}
+
+.categoryContainer button {
+    margin: 1em 0 1em 3em;
+}
+
+.contactsContainer {
+    float: left;
+}
+
+.locationContainer {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 1.5em;
+    background-color: #f0f0ff;
+}
+
+.locationContainer ul li {
+    float: left;
+    margin: 0.3em 0.5em 0 1em;
+    font-size: 0.8em;
+}
+
+.locationContainer button {
+    margin-left: 2em;
+}
+
+.locationContacts {
+    margin: 0;
+    border: none;
+    padding: 0;
+    background-color: #f9f9ff;
+}
+
+.locationContacts ul {
+    min-height: 243px;
+}
+
+#dataContainer {
+    float: left;
+    background-color: #e7e7ff;
+    margin: 0;
+    border: none;
+    padding: 0;
+    width: 12em;
+    height: 520px;
+    text-align: center;
+}
+
+#dataContainer button {
+    margin: 0.5em;
+}
+
+#dataList {
+    overflow-y: scroll;
+    margin: 0;
+    border: none;
+    padding: 0;
+    height: 470px;
+}
+
+#dataList ul li {
+    padding: 1em;
+    text-align: center;
+    font-size: 0.9em;
+    border-bottom: 1px solid #aaa;
+    background-color: #e7e7ff;
+}
+
+#dataList ul li.selected {
+    background-color: #f9f9ff;
+    font-weight: bold;
+}
+
+#dataEdit {
+    float: left;
+    margin: 0;
+    border: none;
+    padding: 0;
+    width: 520px;
+    height: 520px;
+    background-color: #f9f9ff;
+    font-size: 0.7em;
+    overflow-y: scroll;
+}
+
+/*#appearanceContainer {*/
+    /*float: right;*/
+    /*margin-bottom: 0.5em;*/
+/*}*/
+
+#dataEdit > ul > li {
+    margin: 1em 1em 0.5em 2em;
+}
+
+#dataEdit > ul > li > header {
+    font-size: 1.75em;
+    font-weight: bold;
+}
+
+#dataEdit > ul > li > header > label > span {
+    padding-right: 0.5em;
+}
+
+div.attributeContainer {
+    clear: both;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+}
+
+div.attributeContainer > header {
+    margin-top: 2em;
+    border-bottom: 1px solid #669;
+}
+
+div.attributeContainer > header > span {
+    font-weight: bold;
+    padding-right: 1em;
+}
+
+div.attributeContainer > header > button {
+    font-size: 0.8em;
+}
+
+div.attributeContainer > ul > li > div.attribute {
+    float: left;
+    margin-top: 1em;
+    width: 30em;
+}
+
+div.attributeContainer > ul > li > div.delete {
+    float: left;
+    margin-top: 1em;
+    width: 25px;
+    height: 25px;
+    background: url(../img/icons/delete.png) no-repeat;
+}
+
+div.attributeContainer > ul > li > div.draggable {
+    float: left;
+    margin-top: 1em;
+    padding-left: 2.2em;
+    width: 420px;
+    background: url(../img/icons/clip.png) no-repeat;
+}
+
+input.attributeText {
+    width: 29em;
+}
+
+div.attributeContainer > ul > li > div > div.attribute > label > span {
+    float: left;
+    text-align: right;
+    padding-top: 0.3em;
+    padding-right: 0.5em;
+    width: 4.5em;
+}
+
+input.attributeAddressStreet {
+    width: 23.25em;
+}
+input.attributeAddressSuburb {
+    width: 9em;
+}
+input.attributeAddressPostcode {
+    width: 4em;
+}
+
+
+
+#associate {
+    float: left;
+    width: 400px;
+    height: 520px;
+}
+
+#associate div {
+    float: left;
+    width: 400px;
+}
+
+#associateTabContainer {
+    height: 32px;
+}
+
+#associateCategorySelection {
+    height: 32px;
+}
+
+#arrangement {
+    height: 455px;
+    overflow-y: scroll;
+}

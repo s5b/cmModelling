@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" ng-app="myApp" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <title>LiveEditor Concept</title>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="lib/jqueryui/css/smoothness/jquery-ui-1.10.0.custom.css"/>
+</head>
+<body ng-controller="s5b.uberController">
+    <nav>
+        <ul>
+            <li ng-repeat="tab in tabs"
+                ng-click="select('tab', $index)"
+                ng-class="isSelected('tab', $index)"
+                ng-model="tab.content"
+                s5b-content-editable>{{tab.content}}</li>
+        </ul>
+        <div id="addTabs" ng-show="editMode">
+            <select ng-model="newTabDefinition" ng-options="t.content for t in tabTypes"></select></select>
+            <button ng-click="addTab()">+</button>
+        </div>
+        <div id="editControls">
+            <div s5b-data-dialog="dialogDataOpen" id="dataModal">
+                <div id="dataContainer">
+                    <button ng-click="addDatum(data)">+</button>
+                    <div id="dataList">
+                        <ul>
+                            <li ng-repeat="datum in data"
+                                ng-click="select(datumSelectionKey(), $index)"
+                                ng-class="isSelected(datumSelectionKey(), $index)"
+                                ng-model="datum.title">{{datum.content}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="dataEdit">
+                    <ul>
+                        <li ng-repeat="datum in data" ng-show="isSelected(datumSelectionKey(), $index)">
+                            <header><label><span>Name:</span><input ng-model="datum.content" /></label></header>
+                            <div class="attributeContainer">
+                                <header class="attribute"><button ng-click="addAttribute(datum.texts, createText)">+</button><span>Text:</span></header>
+                                <ul>
+                                    <li ng-repeat="text in datum.texts">
+                                        <div class="draggable" data-collection="texts" data-index-attribute="{{$index}}" data-index-datum="{{$parent.$index}}" s5b-draggable>
+                                            <div class="attribute">
+                                                <input class="attributeText" ng-model="text.content"/>
+                                            </div>
+                                        </div>
+                                        <div class="delete" ng-click="deleteAttribute(datum.texts, $index)"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="attributeContainer">
+                                <header class="attribute"><button ng-click="addAttribute(datum.telecoms, createTelecom)">+</button><span>Phone/Fax:</span></header>
+                                <ul>
+                                    <li ng-repeat="telecom in datum.telecoms">
+                                        <div class="draggable" data-collection="telecoms" data-index-attribute="{{$index}}" data-index-datum="{{$parent.$index}}" s5b-draggable>
+                                            <div class="attribute">
+                                                <select ng-model="telecom.content.type">
+                                                    <option>phone</option>
+                                                    <option>fax</option>
+                                                </select>
+                                                <input ng-model="telecom.content.number"/>
+                                            </div>
+                                        </div>
+                                        <div class="delete" ng-click="deleteAttribute(datum.telecoms, $index)"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="attributeContainer">
+                                <header class="attribute"><button ng-click="addAttribute(datum.digitalPresences, createDigitalPresence)">+</button><span>Links:</span></header>
+                                <ul>
+                                    <li ng-repeat="digitalPresence in datum.digitalPresences">
+                                        <div class="draggable" data-collection="digitalPresences" data-index-attribute="{{$index}}" data-index-datum="{{$parent.$index}}" s5b-draggable>
+                                            <div class="attribute">
+                                                <label><span>label:</span><input ng-model="digitalPresence.content.label"/></label><br/>
+                                                <label><span>url:</span><input ng-model="digitalPresence.content.url"/></label>
+                                            </div>
+                                        </div>
+                                        <div class="delete" ng-click="deleteAttribute(datum.digitalPresences, $index)"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="attributeContainer">
+                                <header class="attribute"><button ng-click="addAttribute(datum.addresses, createAddress)">+</button><span>Address:</span></header>
+                                <ul>
+                                    <li ng-repeat="address in datum.addresses">
+                                        <div class="draggable" data-collection="addresses" data-index-attribute="{{$index}}" data-index-datum="{{$parent.$index}}" s5b-draggable>
+                                            <div class="attribute address">
+                                                <label><span>Street:</span><input  class="attributeAddressStreet" ng-model="address.content.street"/></label><br/>
+                                                <label><span>Suburb:</span><input class="attributeAddressSuburb" ng-model="address.content.suburb"/></label>
+                                                <select ng-model="address.content.state">
+                                                    <option>ACT</option>
+                                                    <option>NSW</option>
+                                                    <option>NT</option>
+                                                    <option>QLD</option>
+                                                    <option>SA</option>
+                                                    <option>VIC</option>
+                                                    <option>TAS</option>
+                                                    <option>WA</option>
+                                                </select>
+                                                <label>Postcode:<input class="attributeAddressPostcode" ng-model="address.content.postcode"/></label>
+                                            </div>
+                                        </div>
+                                        <div class="delete" ng-click="deleteAttribute(datum.addresses, $index)"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="associate">
+                    <div id="associateTabContainer">
+                        <label>Tab: <select ng-model="appearanceSelectedTab" ng-options="tab.content for tab in tabs" ng-change="changedAppearanceSelectedTab()"></select></label>
+                    </div>
+                    <ng-switch on="appearanceSelectedTab.type">
+                        <div id="associateCategoryContainer" ng-switch-when="c">
+                            <div id="associateCategorySelection">
+                                <label>Category: <select ng-model="appearanceSelectedSubTab" ng-options="subtab.content for subtab in getSubTabs(appearanceSelectedTab)"></select></label>
+                            </div>
+                            <div id="arrangement" data-id-tab="appearanceSelectedTab.id" data-id-sub-tab="appearanceSelectedSubTab.id" s5b-droppable>
+                                <ul>
+                                    <li ng-repeat="element in associationForTabSubTab(appearanceSelectedTab, appearanceSelectedSubTab)">{{element.type}}</li>
+                                    <li s5b-draggable>AAAAAAAAAAAA</li>
+                                    <li s5b-draggable>BBBBBBBBBBBB</li>
+                                    <li s5b-draggable>CCCCCCCCCCCC</li>
+                                    <li s5b-draggable>DDDDDDDDDDDD</li>
+                                    <li s5b-draggable>EEEEEEEEEEEE</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-switch>
+                </div>
+            </div>
+            <button ng-click="toggleEditMode()">{{modeLabel}}</button><br/>
+            <button id="dialogDataOpen">Data</button>
+        </div>
+    </nav>
+
+    <!-- **** Display Content **** -->
+
+    <section id="content">
+        <article ng-repeat="tab in tabs" ng-switch on="tab.type" ng-show="isSelected('tab', $index)">
+            <div ng-switch-when="c">
+                <div class="categoryContainer">
+                    <ul>
+                        <li ng-repeat="category in tab.categories"
+                            ng-click="select(categorySelectionKey($parent.$index), $index)"
+                            ng-class="isSelected(categorySelectionKey($parent.$index), $index)"
+                            ng-model="category.content"
+                            s5b-content-editable>{{category.content}}</li>
+                    </ul>
+                    <button ng-click="addCategory($parent.$index, tab.categories)" ng-show="editMode">+</button>
+                </div>
+                <div class="contactsContainer">
+                    <!--
+                    <ul>
+                        <li ng-repeat="datum in data" ng-show="hasAssociations(datum)">
+                            {{datum.title.value}}
+                        </li>
+                    </ul>
+                    -->
+                </div>
+            </div>
+            <div ng-switch-when="f">
+                <div class="locationContainer">
+                    <ul>
+                        <li ng-repeat="location in tab.locations"
+                            ng-click="select(locationSelectionKey($parent.$index), $index)"
+                            ng-class="isSelected(locationSelectionKey($parent.$index), $index)"><label><input type="checkbox" ng-model="location.selected"/>&nbsp;<span s5b-content-editable ng-model="location.title">{{location.title}}</span></label></li>
+                    </ul>
+                    <button ng-click="addLocation($parent.$index, tab.locations)" ng-show="editMode">+</button>
+                </div>
+                <div class="locationContacts">
+                    <!--
+                    <ul>
+                        <li ng-repeat="datum in data" ng-show="hasAssociations(datum)">
+                            {{datum.title.value}}
+                        </li>
+                    </ul>
+                    -->
+                </div>
+            </div>
+        </article>
+
+    </section>
+
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+-->
+<script src="lib/jqueryui/js/jquery-1.9.0.js"></script>
+<script src="lib/jqueryui/js/jquery-ui-1.10.0.custom.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
+</body>
+</html>
