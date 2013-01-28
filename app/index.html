@@ -118,10 +118,25 @@
                                                      ng-options="category.content for category in associatedTab.categories"></select></label>
                         </div>
                         <div id="arrangement" data-id-tab="{{associatedTab.id}}" data-id-category="{{associatedCategory.id}}" s5b-droppable>
-                            <ul ng-show="associations[associationKey('aa')]">
-                                <li ng-repeat="association in associations[associationKey('li assoc')]">
-                                    <div ng-show="association.collectionName == 'texts'">
-                                        {{attributeByAssociation(association).content}}
+                            <ul ng-show="associations[associationKey()]">
+                                <li class="arrangable" ng-repeat="association in associations[associationKey()]"><!-- TODO: draggable arrange the order of the content. -->
+                                    <div class="arrangedAttribute">
+                                        <div ng-show="association.collectionName == 'texts'">
+                                            {{attributeByAssociation(association).content}}
+                                        </div>
+                                        <div ng-show="association.collectionName == 'telecoms'">
+                                            Type: {{attributeByAssociation(association).content.type}}<br/>
+                                            Number: {{attributeByAssociation(association).content.number}}
+                                        </div>
+                                        <div ng-show="association.collectionName == 'digitalPresences'">
+                                            Label: {{attributeByAssociation(association).content.label}}<br/>
+                                            URL: {{attributeByAssociation(association).content.url}}
+                                        </div>
+                                        <div ng-show="association.collectionName == 'addresses'">
+                                            {{attributeByAssociation(association).content.street}}<br/>
+                                            {{attributeByAssociation(association).content.suburb}} {{attributeByAssociation(association).content.state}} {{attributeByAssociation(association).content.postcode}}
+                                        </div>
+                                        <div class="delete"></div>
                                     </div>
                                 </li>
                             </ul>
@@ -150,6 +165,28 @@
                     <button ng-click="addCategory($parent.$index, tab.categories)" ng-show="editMode">+</button>
                 </div>
                 <div class="contactsContainer">
+                    <div ng-repeat="category in tab.categories" ng-show="isSelected(categorySelectionKey($parent.$index), $index)">
+                    <ul ng-show="associations[associationContentKey(tab, category)]">
+                        <li class="displayContact" ng-repeat="association in associations[associationContentKey(tab, category)]"><!-- TODO: draggable to change display order for contacts -->
+                            <div class="arrangedAttribute">
+                                <div ng-show="association.collectionName == 'texts'">
+                                    <p>{{attributeByAssociation(association).content}}</p>
+                                </div>
+                                <div ng-show="association.collectionName == 'telecoms'">
+                                    {{attributeByAssociation(association).content.type}} :
+                                    Number: {{attributeByAssociation(association).content.number}}
+                                </div>
+                                <div ng-show="association.collectionName == 'digitalPresences'">
+                                    <a target="_blank" href="{{attributeByAssociation(association).content.url}}">{{attributeByAssociation(association).content.label}}</a>
+                                </div>
+                                <div ng-show="association.collectionName == 'addresses'">
+                                    {{attributeByAssociation(association).content.street}}<br/>
+                                    {{attributeByAssociation(association).content.suburb}} {{attributeByAssociation(association).content.state}} {{attributeByAssociation(association).content.postcode}}
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    </div>
                     <!--
                     <ul>
                         <li ng-repeat="datum in data" ng-show="hasAssociations(datum)">

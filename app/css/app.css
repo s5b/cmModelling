@@ -230,7 +230,8 @@ div.attributeContainer > ul > li > div.attribute {
     width: 30em;
 }
 
-div.attributeContainer > ul > li > div.delete {
+/*div.attributeContainer > ul > li > div.delete {*/
+div.delete {
     float: left;
     margin-top: 1em;
     width: 25px;
@@ -295,4 +296,23 @@ input.attributeAddressPostcode {
 #arrangement ul {
     min-height: 455px;
     overflow-y: scroll;
+}
+
+#arrangement .arrangedAttribute {
+    float: left;
+    margin-top: 1em;
+    margin-left: 1em;
+    padding-left: 2.2em;
+    width: 350px;
+    background: url(../img/icons/arrange.png) no-repeat;
+}
+
+#arrangement .arrangedAttribute div {
+    width: 315px;
+}
+
+#arrangement .arrangedAttribute div.delete {
+    margin-top: 0;
+    margin-left: 0.2em;
+    width: 25px;
 }

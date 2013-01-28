@@ -42,7 +42,7 @@ s5b.uberController = function ($scope) {
         $scope.selectedItem[selectionType] = index;
     };
     $scope.isSelected = function (selectionType, index) {
-        return $scope.selectedItem[selectionType] === index ? 'selected' : '';
+        return $scope.selectedItem[selectionType] === index ? 'selected' : null;
     };
 
     // *** Tabs ***
@@ -155,12 +155,23 @@ s5b.uberController = function ($scope) {
     $scope.resetAssociatedCategory = function () {
         $scope.associatedCategory = null;
     };
-    $scope.associationKey = function (diag) {
+    var scopedAssociationKey = function (tab, category) {
         var key = 'no-association';
-        if ($scope.associatedTab !== null && $scope.associatedCategory !== null) {
-            key = s5b.associationKey($scope.associatedTab.id, $scope.associatedCategory.id);
+        if (tab !== null && category !== null) {
+            key = s5b.associationKey(tab.id, category.id);
         }
         return key;
+    };
+    $scope.associationKey = function (context) {
+        console.log('-- associationKey: ' + context);
+        console.log($scope);
+        return scopedAssociationKey($scope.associatedTab, $scope.associatedCategory);
+    };
+    $scope.associationContentKey = function (tab, category) {
+        console.log('-- associationContentKey');
+        console.log(tab);
+        console.log(category);
+        return scopedAssociationKey(tab, category);
     };
 
     $scope.attributeByAssociation = function (association) {

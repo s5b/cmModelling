@@ -56,7 +56,7 @@ angular.module('myApp.directives', []).
         return {
             link: function (scope, element) {
                 element.draggable({
-//                    revert: true,
+//                    appendTo: 'body',
                     helper: 'clone'
                 });
             }
@@ -70,6 +70,9 @@ angular.module('myApp.directives', []).
                     drop: function (event, ui) {
 //                        console.log('-- Droppable');
 //                        console.log(scope);
+                        if (angular.element(ui.draggable).data('type') === 'arrangable') {
+
+                        }
                         var idTab = scope.associatedTab.id;
                         var idCategory = scope.associatedCategory.id;
                         var collectionName = angular.element(ui.draggable).data('collection');
@@ -90,7 +93,17 @@ angular.module('myApp.directives', []).
 //                        console.log('APPLYING');
                         scope.$apply();
                     }
-                });
+                }).sortable({
+                        item: 'li.sortable'
+                    });
             }
         };
+    }).
+    directive('s5bSortable', function () {
+        return {
+            link: function (scope, element) {
+                element.sortable();
+                element.disableSelection();
+            }
+        }
     });
