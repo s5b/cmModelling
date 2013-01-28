@@ -7,6 +7,19 @@ s5b.model.uniqueIdentifier = 0;
 s5b.model.tabs = [];
 s5b.model.data = [];
 s5b.model.associations = {};
+
+s5b.utility = {};
+s5b.utility.findById = function (sourceArray, value) {
+    var index;
+    for (index = 0; index < sourceArray.length; index += 1) {
+        if (sourceArray[index].id === value) {
+            return sourceArray[index];
+        }
+    }
+    return null;
+};
+
+
 s5b.associationKey = function (idTab, idCategory) {
     return idTab + '|' + idCategory;
 };
@@ -73,7 +86,7 @@ s5b.uberController = function ($scope) {
 
     var createNewCategory = function(categories) {
         var newId = nextId(categories);
-        return { id: newId, content: 'unnamed_category' };
+        return { id: newId, content: 'unnamed_category', data: [] };
     };
     $scope.categorySelectionKey = function (index) {
         return 'category_' + index;
@@ -155,6 +168,47 @@ s5b.uberController = function ($scope) {
     $scope.resetAssociatedCategory = function () {
         $scope.associatedCategory = null;
     };
+
+    $scope.getAssociatedAttributes = function () {
+        var result = [];
+        var associatedDatum, index;
+        if ($scope.associatedCategory !== null) {
+            associatedDatum = s5b.utility.findById($scope.associatedCategory.data, $scope.data[$scope.selectedItem[$scope.datumSelectionKey()]].id);
+            console.log('-- associatedDatum');
+            console.log(associatedDatum);
+            if (associatedDatum !== null) {
+                for (index = 0; index < associatedDatum.attributes.length; index += 1) {
+                    result.push(s5b.utility.findById($scope.data[$scope.selectedItem[$scope.datumSelectionKey()]][associatedDatum.attributes[index].collectionName],
+                        associatedDatum.attributes[index].id));
+                }
+            }
+        }
+        return result;
+    };
+
+    $scope.getDisplayAttributes = function (displayDatum) {
+        var result = [];
+        var index, datum;
+        console.log('-- displayDatum');
+        console.log(displayDatum);
+        if (displayDatum) {
+            datum = s5b.utility.findById($scope.data, displayDatum.id);
+            if (datum) {
+                for (index = 0; index < displayDatum.attributes.length; index += 1) {
+                    result.push(s5b.utility.findById(datum[displayDatum.attributes[index].collectionName], displayDatum.attributes[index].id));
+                }
+            }
+        }
+        return result;
+    };
+
+
+
+
+
+
+
+
     var scopedAssociationKey = function (tab, category) {
         var key = 'no-association';
         if (tab !== null && category !== null) {
@@ -163,14 +217,14 @@ s5b.uberController = function ($scope) {
         return key;
     };
     $scope.associationKey = function (context) {
-        console.log('-- associationKey: ' + context);
-        console.log($scope);
+//        console.log('-- associationKey: ' + context);
+//        console.log($scope);
         return scopedAssociationKey($scope.associatedTab, $scope.associatedCategory);
     };
     $scope.associationContentKey = function (tab, category) {
-        console.log('-- associationContentKey');
-        console.log(tab);
-        console.log(category);
+//        console.log('-- associationContentKey');
+//        console.log(tab);
+//        console.log(category);
         return scopedAssociationKey(tab, category);
     };
 

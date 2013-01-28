@@ -1,6 +1,5 @@
 /* Directives */
 
-
 angular.module('myApp.directives', []).
     directive('s5bContentEditable', function () {
         return {
@@ -85,10 +84,19 @@ angular.module('myApp.directives', []).
 //                        console.log('-- Working in tab id ' + idTab + ', category id ' + idCategory);
 //                        console.log(scope);
 
-                        var datum = s5b.model.data[indexDatum];
+                        var tab = s5b.utility.findById(s5b.model.tabs, idTab);
+                        var category = s5b.utility.findById(tab.categories, idCategory);
+                        var datum = s5b.utility.findById(category.data, s5b.model.data[indexDatum].id);
+                        if (datum === null) {
+                            datum = { id: s5b.model.data[indexDatum].id, attributes: [] };
+                            category.data.push(datum);
+                        }
+                        datum.attributes.push({ collectionName: collectionName, id: s5b.model.data[indexDatum][collectionName][indexAttribute].id });
+
+                        var daaatum = s5b.model.data[indexDatum];
 
                         s5b.model.associations[associationKey] = s5b.model.associations[associationKey] || [];
-                        s5b.model.associations[associationKey].push({ idDatum: datum.id, collectionName: collectionName, idAttribute: datum[collectionName][indexAttribute].id });
+                        s5b.model.associations[associationKey].push({ idDatum: daaatum.id, collectionName: collectionName, idAttribute: daaatum[collectionName][indexAttribute].id });
 
 //                        console.log('APPLYING');
                         scope.$apply();

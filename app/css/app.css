@@ -316,3 +316,9 @@ input.attributeAddressPostcode {
     margin-left: 0.2em;
     width: 25px;
 }
+
+.displayContact {
+    margin: 0.5em;
+    border: 1px solid pink;
+    padding: 1em;
+}

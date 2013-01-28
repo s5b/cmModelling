@@ -108,6 +108,9 @@
                         </li>
                     </ul>
                 </div>
+
+                <!-- Associate the data with the tabs/categories -->
+
                 <div id="associate">
                     <div id="associateTabContainer">
                         <label>Tab: <select ng-model="associatedTab" ng-options="tab.content for tab in tabs" ng-change="resetAssociatedCategory()"></select></label>
@@ -118,23 +121,25 @@
                                                      ng-options="category.content for category in associatedTab.categories"></select></label>
                         </div>
                         <div id="arrangement" data-id-tab="{{associatedTab.id}}" data-id-category="{{associatedCategory.id}}" s5b-droppable>
-                            <ul ng-show="associations[associationKey()]">
-                                <li class="arrangable" ng-repeat="association in associations[associationKey()]"><!-- TODO: draggable arrange the order of the content. -->
+                            <ul>
+                            <!--<ul ng-show="associations[associationKey()]">-->
+                                <li class="arrangable" ng-repeat="attribute in getAssociatedAttributes()"><!-- TODO: draggable arrange the order of the content. -->
+                                <!--<li class="arrangable" ng-repeat="association in associations[associationKey()]">&lt;!&ndash; TODO: draggable arrange the order of the content. &ndash;&gt;-->
                                     <div class="arrangedAttribute">
-                                        <div ng-show="association.collectionName == 'texts'">
-                                            {{attributeByAssociation(association).content}}
+                                        <div ng-show="attribute.type == 'text'">
+                                            {{attribute.content}}
                                         </div>
-                                        <div ng-show="association.collectionName == 'telecoms'">
-                                            Type: {{attributeByAssociation(association).content.type}}<br/>
-                                            Number: {{attributeByAssociation(association).content.number}}
+                                        <div ng-show="attribute.type == 'telecom'">
+                                            Type: {{attribute.content.type}}<br/>
+                                            Number: {{attribute.content.number}}
                                         </div>
-                                        <div ng-show="association.collectionName == 'digitalPresences'">
-                                            Label: {{attributeByAssociation(association).content.label}}<br/>
-                                            URL: {{attributeByAssociation(association).content.url}}
+                                        <div ng-show="attribute.type == 'digitalPresence'">
+                                            Label: {{attribute.content.label}}<br/>
+                                            URL: {{attribute.content.url}}
                                         </div>
-                                        <div ng-show="association.collectionName == 'addresses'">
-                                            {{attributeByAssociation(association).content.street}}<br/>
-                                            {{attributeByAssociation(association).content.suburb}} {{attributeByAssociation(association).content.state}} {{attributeByAssociation(association).content.postcode}}
+                                        <div ng-show="attribute.type == 'address'">
+                                            {{attribute.content.street}}<br/>
+                                            {{attribute.content.suburb}} {{attribute.content.state}} {{attribute.content.postcode}}
                                         </div>
                                         <div class="delete"></div>
                                     </div>
@@ -166,24 +171,30 @@
                 </div>
                 <div class="contactsContainer">
                     <div ng-repeat="category in tab.categories" ng-show="isSelected(categorySelectionKey($parent.$index), $index)">
-                    <ul ng-show="associations[associationContentKey(tab, category)]">
-                        <li class="displayContact" ng-repeat="association in associations[associationContentKey(tab, category)]"><!-- TODO: draggable to change display order for contacts -->
-                            <div class="arrangedAttribute">
-                                <div ng-show="association.collectionName == 'texts'">
-                                    <p>{{attributeByAssociation(association).content}}</p>
-                                </div>
-                                <div ng-show="association.collectionName == 'telecoms'">
-                                    {{attributeByAssociation(association).content.type}} :
-                                    Number: {{attributeByAssociation(association).content.number}}
-                                </div>
-                                <div ng-show="association.collectionName == 'digitalPresences'">
-                                    <a target="_blank" href="{{attributeByAssociation(association).content.url}}">{{attributeByAssociation(association).content.label}}</a>
-                                </div>
-                                <div ng-show="association.collectionName == 'addresses'">
-                                    {{attributeByAssociation(association).content.street}}<br/>
-                                    {{attributeByAssociation(association).content.suburb}} {{attributeByAssociation(association).content.state}} {{attributeByAssociation(association).content.postcode}}
-                                </div>
-                            </div>
+                    <ul>
+                    <!--<ul ng-show="associations[associationContentKey(tab, category)]">-->
+                        <li class="displayContact" ng-repeat="associatedDatum in category.data"><!-- TODO: draggable to change display order for contacts -->
+                        <!--<li class="displayContact" ng-repeat="association in associations[associationContentKey(tab, category)]">&lt;!&ndash; TODO: draggable to change display order for contacts &ndash;&gt;-->
+                            <ul>
+                                <li ng-repeat="attribute in getDisplayAttributes(associatedDatum)">
+                                    <div class="arrangedAttribute">
+                                        <div ng-show="attribute.type == 'text'">
+                                            <p>{{attribute.content}}</p>
+                                        </div>
+                                        <div ng-show="attribute.type == 'telecom'">
+                                            {{attribute.content.type}} :
+                                            Number: {{attribute.content.number}}
+                                        </div>
+                                        <div ng-show="attribute.type == 'digitalPresence'">
+                                            <a target="_blank" href="{{attribute.content.url}}">{{attribute.content.label}}</a>
+                                        </div>
+                                        <div ng-show="association.collectionName == 'addresse'">
+                                            {{attribute.content.street}}<br/>
+                                            {{attribute.content.suburb}} {{attribute.content.state}} {{attribute.content.postcode}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     </div>
