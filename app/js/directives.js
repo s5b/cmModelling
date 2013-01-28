@@ -64,21 +64,31 @@ angular.module('myApp.directives', []).
     }).
     directive('s5bDroppable', function () {
         return {
-            link: function (scope, element) {
+//            scope: {},
+            link: function (scope, element, attrs) {
                 element.droppable({
                     drop: function (event, ui) {
-                        //var tabId = scope.$parent.$eval(angular.element(element).data('id-tab'));
-                        //var subTabId = scope.$eval(angular.element(element).data('id-sub-tab'));
+//                        console.log('-- Droppable');
+//                        console.log(scope);
+                        var idTab = scope.associatedTab.id;
+                        var idCategory = scope.associatedCategory.id;
                         var collectionName = angular.element(ui.draggable).data('collection');
                         var indexAttribute = angular.element(ui.draggable).data('index-attribute');
                         var indexDatum = angular.element(ui.draggable).data('index-datum');
+                        var associationKey = s5b.associationKey(idTab, idCategory);
 
-                        console.log('You have dropped a ' + collectionName + ' with index ' + indexAttribute + ' from datum index ' + indexDatum);
-                        console.log('-- Working in tab id ' + tabId + ', sub tab id ' + subTabId);
-                        console.log(scope);
+//                        console.log(attrs);
+//                        console.log('You have dropped a ' + collectionName + ' with index ' + indexAttribute + ' from datum index ' + indexDatum);
+//                        console.log('-- Working in tab id ' + idTab + ', category id ' + idCategory);
+//                        console.log(scope);
 
-                        s5b.model.associations[tabId + '.' + subTabId] = s5b.model.associations[tabId + '.' + subTabId] || [];
-                        s5b.model.associations[tabId + '.' + subTabId].push({ indexDatum: indexDatum, collectionName: collectionName, indexAttribute: indexAttribute});
+                        var datum = s5b.model.data[indexDatum];
+
+                        s5b.model.associations[associationKey] = s5b.model.associations[associationKey] || [];
+                        s5b.model.associations[associationKey].push({ idDatum: datum.id, collectionName: collectionName, idAttribute: datum[collectionName][indexAttribute].id });
+
+//                        console.log('APPLYING');
+                        scope.$apply();
                     }
                 });
             }

@@ -1,9 +1,15 @@
+// ***  Model ***
 
 s5b.model = {};
+
+s5b.model.uniqueIdentifier = 0;
 
 s5b.model.tabs = [];
 s5b.model.data = [];
 s5b.model.associations = {};
+s5b.associationKey = function (idTab, idCategory) {
+    return idTab + '|' + idCategory;
+};
 
 
 /* Controllers */
@@ -12,15 +18,9 @@ s5b.uberController = function ($scope) {
 
     // *** Utility ***
 
-    var nextId = function (collection) {
-        if (collection === null) {
-            return 0;
-        }
-        var index, nextId = 0;
-        for (index = 0; index < collection.length; index += 1) {
-            nextId = Math.max(nextId, collection[index].id);
-        }
-        return nextId + 1;
+    var nextId = function () {
+        s5b.model.uniqueIdentifier += 1;
+        return s5b.model.uniqueIdentifier;
     };
 
     // *** Edit / Preview ***
@@ -73,7 +73,7 @@ s5b.uberController = function ($scope) {
 
     var createNewCategory = function(categories) {
         var newId = nextId(categories);
-        return { id: newId, content: 'Category_' + newId };
+        return { id: newId, content: 'unnamed_category' };
     };
     $scope.categorySelectionKey = function (index) {
         return 'category_' + index;
@@ -104,7 +104,7 @@ s5b.uberController = function ($scope) {
         var newId = nextId(data);
         return {
             id: newId,
-            content: 'presence_' + newId,
+            content: 'unnamed_presence',
             texts: [],
             telecoms: [],
             digitalPresences: [],
@@ -147,25 +147,43 @@ s5b.uberController = function ($scope) {
     };
 
 
-    // DRAGONS!!!!
+    // *** Associations ***
 
     $scope.associatedTab = null;
     $scope.associatedCategory = null;
-    $scope.associations = {};
+    $scope.associations = s5b.model.associations;
     $scope.resetAssociatedCategory = function () {
-        console.log('Resetting the associated category');
         $scope.associatedCategory = null;
     };
-    $scope.associationKey = function () {
-        console.log($scope);
-        console.log('Making association key.');
+    $scope.associationKey = function (diag) {
         var key = 'no-association';
         if ($scope.associatedTab !== null && $scope.associatedCategory !== null) {
-            key = $scope.associatedTab.id + '.' + $scope.associatedCategory.id;
+            key = s5b.associationKey($scope.associatedTab.id, $scope.associatedCategory.id);
         }
-        console.log('--- key: ' + key);
         return key;
     };
+
+    $scope.attributeByAssociation = function (association) {
+        var index, datum, collection;
+        var found = false;
+        for (index = 0; index < $scope.data.length; index += 1) {
+            if ($scope.data[index].id === association.idDatum) {
+                found = true;
+                datum = $scope.data[index];
+                break;
+            }
+        }
+        if (!found) {
+            return {};
+        }
+        collection = datum[association.collectionName];
+        for (index = 0; index < collection.length; index += 1) {
+            if (collection[index].id == association.idAttribute) {
+                return collection[index];
+            }
+        }
+        return {};
+    }
 
 
 };

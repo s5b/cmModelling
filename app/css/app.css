@@ -274,6 +274,7 @@ input.attributeAddressPostcode {
     float: left;
     width: 400px;
     height: 520px;
+    font-size: 0.8em;
 }
 
 #associate div {
@@ -281,15 +282,17 @@ input.attributeAddressPostcode {
     width: 400px;
 }
 
-#associateTabContainer {
+#associateTabContainer, #associateCategorySelection {
     height: 32px;
-}
-
-#associateCategorySelection {
-    height: 32px;
+    padding-left: 1em;
 }
 
 #arrangement {
     height: 455px;
+    overflow-y: scroll;
+}
+
+#arrangement ul {
+    min-height: 455px;
     overflow-y: scroll;
 }

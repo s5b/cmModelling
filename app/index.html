@@ -112,16 +112,20 @@
                     <div id="associateTabContainer">
                         <label>Tab: <select ng-model="associatedTab" ng-options="tab.content for tab in tabs" ng-change="resetAssociatedCategory()"></select></label>
                     </div>
-                    <div id="associateCategoryContainer" ng-show="associatedTab.type == 'c'">
+                    <div id="associateCategoryContainer" ng-show="associatedTab.type == 'c'"> <!-- Do NOT use ng-switch unless you are a scoping wizard. -->
                         <div id="associateCategorySelection">
                             <label>Category: <select ng-model="associatedCategory"
                                                      ng-options="category.content for category in associatedTab.categories"></select></label>
                         </div>
-                        <!--<div id="arrangement" data-id-tab="appearanceSelectedTab.id" data-id-sub-tab="appearanceSelectedSubTab.id" s5b-droppable>-->
-                            <ul>
-                                <li ng-repeat="association in associations[associationKey()]">{{association.type}}</li>
+                        <div id="arrangement" data-id-tab="{{associatedTab.id}}" data-id-category="{{associatedCategory.id}}" s5b-droppable>
+                            <ul ng-show="associations[associationKey('aa')]">
+                                <li ng-repeat="association in associations[associationKey('li assoc')]">
+                                    <div ng-show="association.collectionName == 'texts'">
+                                        {{attributeByAssociation(association).content}}
+                                    </div>
+                                </li>
                             </ul>
-                        <!--</div>-->
+                        </div>
                     </div>
                 </div>
             </div>
