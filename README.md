@@ -14,7 +14,7 @@ TODO
 
 - Styling selection with the association to include brand colour checkbox.
 
-- Change the "delete" icon to an "unlink" icon in the association area - and implement the action.
+- Implement the unlink action for associations.
 
 - "Find US" associates contacts with each tab. It then allows locations to be attached to the association.
 

@@ -312,10 +312,13 @@ input.attributeAddressPostcode {
     width: 315px;
 }
 
-#arrangement .arrangedAttribute div.delete {
+#arrangement .arrangedAttribute div.unlink {
+    float: left;
     margin-top: 0;
     margin-left: 0.2em;
     width: 25px;
+    height: 25px;
+    background: url(../img/icons/unlink.png) no-repeat;
 }
 
 .displayContact {
