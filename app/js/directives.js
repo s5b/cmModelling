@@ -90,7 +90,10 @@ angular.module('myApp.directives', []).
                             datum = { id: s5b.model.data[indexDatum].id, attributes: [] };
                             category.data.push(datum);
                         }
-                        datum.attributes.push({ collectionName: collectionName, id: s5b.model.data[indexDatum][collectionName][indexAttribute].id });
+                        datum.attributes.push({
+                            collectionName: collectionName,
+                            id: s5b.model.data[indexDatum][collectionName][indexAttribute].id,
+                            style: 'normal'});
 
                         scope.$apply();
                     }

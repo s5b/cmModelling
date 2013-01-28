@@ -198,4 +198,24 @@ s5b.uberController = function ($scope) {
         return result;
     };
 
+    $scope.getAssociation = function (attribute) {
+        var result = [];
+        var associatedDatum;
+        if ($scope.associatedCategory !== null) {
+            associatedDatum = s5b.utility.findById($scope.associatedCategory.data, $scope.data[$scope.selectedItem[$scope.datumSelectionKey()]].id);
+            if (associatedDatum !== null) {
+                return s5b.utility.findById(associatedDatum.attributes, attribute.id);
+            }
+        }
+        return result;
+    }
+
+    $scope.getDisplayAssociation = function (associatedDatum, attribute) {
+        var result = [];
+        if (associatedDatum !== null) {
+            return s5b.utility.findById(associatedDatum.attributes, attribute.id);
+        }
+        return result;
+    }
+
 };

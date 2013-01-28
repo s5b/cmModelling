@@ -124,7 +124,6 @@
                             <ul>
                             <!--<ul ng-show="associations[associationKey()]">-->
                                 <li class="arrangable" ng-repeat="attribute in getAssociatedAttributes()"><!-- TODO: draggable arrange the order of the content. -->
-                                <!--<li class="arrangable" ng-repeat="association in associations[associationKey()]">&lt;!&ndash; TODO: draggable arrange the order of the content. &ndash;&gt;-->
                                     <div class="arrangedAttribute">
                                         <div ng-show="attribute.type == 'text'">
                                             {{attribute.content}}
@@ -142,6 +141,13 @@
                                             {{attribute.content.suburb}} {{attribute.content.state}} {{attribute.content.postcode}}
                                         </div>
                                         <div class="delete"></div>
+                                        <div>
+                                            <select ng-model="getAssociation(attribute).style">
+                                                <option>normal</option>
+                                                <option>highlight</option>
+                                                <option>diminish</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
@@ -177,7 +183,7 @@
                         <!--<li class="displayContact" ng-repeat="association in associations[associationContentKey(tab, category)]">&lt;!&ndash; TODO: draggable to change display order for contacts &ndash;&gt;-->
                             <ul>
                                 <li ng-repeat="attribute in getDisplayAttributes(associatedDatum)">
-                                    <div class="arrangedAttribute">
+                                    <div class="displayAttribute" ng-class="getDisplayAssociation(associatedDatum, attribute).style">
                                         <div ng-show="attribute.type == 'text'">
                                             {{attribute.content}}
                                         </div>

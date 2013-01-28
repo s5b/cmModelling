@@ -324,3 +324,13 @@ input.attributeAddressPostcode {
     padding: 1em;
     background-color: #f5f5f5;
 }
+
+.displayAttribute.highlight {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.displayAttribute.diminish {
+    font-style: italic;
+    font-size: 0.8em;
+}
