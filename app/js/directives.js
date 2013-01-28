@@ -67,8 +67,8 @@ angular.module('myApp.directives', []).
             link: function (scope, element) {
                 element.droppable({
                     drop: function (event, ui) {
-                        var tabId = scope.$parent.$eval(angular.element(element).data('id-tab'));
-                        var subTabId = scope.$eval(angular.element(element).data('id-sub-tab'));
+                        //var tabId = scope.$parent.$eval(angular.element(element).data('id-tab'));
+                        //var subTabId = scope.$eval(angular.element(element).data('id-sub-tab'));
                         var collectionName = angular.element(ui.draggable).data('collection');
                         var indexAttribute = angular.element(ui.draggable).data('index-attribute');
                         var indexDatum = angular.element(ui.draggable).data('index-datum');

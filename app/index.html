@@ -110,25 +110,19 @@
                 </div>
                 <div id="associate">
                     <div id="associateTabContainer">
-                        <label>Tab: <select ng-model="appearanceSelectedTab" ng-options="tab.content for tab in tabs" ng-change="changedAppearanceSelectedTab()"></select></label>
+                        <label>Tab: <select ng-model="associatedTab" ng-options="tab.content for tab in tabs" ng-change="resetAssociatedCategory()"></select></label>
                     </div>
-                    <ng-switch on="appearanceSelectedTab.type">
-                        <div id="associateCategoryContainer" ng-switch-when="c">
-                            <div id="associateCategorySelection">
-                                <label>Category: <select ng-model="appearanceSelectedSubTab" ng-options="subtab.content for subtab in getSubTabs(appearanceSelectedTab)"></select></label>
-                            </div>
-                            <div id="arrangement" data-id-tab="appearanceSelectedTab.id" data-id-sub-tab="appearanceSelectedSubTab.id" s5b-droppable>
-                                <ul>
-                                    <li ng-repeat="element in associationForTabSubTab(appearanceSelectedTab, appearanceSelectedSubTab)">{{element.type}}</li>
-                                    <li s5b-draggable>AAAAAAAAAAAA</li>
-                                    <li s5b-draggable>BBBBBBBBBBBB</li>
-                                    <li s5b-draggable>CCCCCCCCCCCC</li>
-                                    <li s5b-draggable>DDDDDDDDDDDD</li>
-                                    <li s5b-draggable>EEEEEEEEEEEE</li>
-                                </ul>
-                            </div>
+                    <div id="associateCategoryContainer" ng-show="associatedTab.type == 'c'">
+                        <div id="associateCategorySelection">
+                            <label>Category: <select ng-model="associatedCategory"
+                                                     ng-options="category.content for category in associatedTab.categories"></select></label>
                         </div>
-                    </ng-switch>
+                        <!--<div id="arrangement" data-id-tab="appearanceSelectedTab.id" data-id-sub-tab="appearanceSelectedSubTab.id" s5b-droppable>-->
+                            <ul>
+                                <li ng-repeat="association in associations[associationKey()]">{{association.type}}</li>
+                            </ul>
+                        <!--</div>-->
+                    </div>
                 </div>
             </div>
             <button ng-click="toggleEditMode()">{{modeLabel}}</button><br/>

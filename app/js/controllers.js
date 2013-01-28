@@ -149,65 +149,23 @@ s5b.uberController = function ($scope) {
 
     // DRAGONS!!!!
 
-    $scope.appearanceSelectedTab = null;
-    $scope.appearanceSelectedSubTab = null;
-    $scope.associationForTabSubTab = function (appearanceSelectedTab, appearanceSelectedSubTab) {
-        var result = [];
-        result.push({type: 'xxx'});
-        result.push({type: 'yyy'});
-        return result;
-    }
-
-
-    $scope.disableAssociationInput = function () {
-//        console.log('Disable?');
-//        console.log($scope.appearanceSelectedTab);
-//        console.log($scope.appearanceSelectedSubTab);
-        return $scope.appearanceSelectedTab === null || $scope.appearanceSelectedSubTab === null;
+    $scope.associatedTab = null;
+    $scope.associatedCategory = null;
+    $scope.associations = {};
+    $scope.resetAssociatedCategory = function () {
+        console.log('Resetting the associated category');
+        $scope.associatedCategory = null;
     };
-    $scope.changedAppearanceSelectedTab = function () {
-//        console.log($scope.appearanceSelectedTab);
-        $scope.appearanceSelectedSubTab = null;
-    };
-    $scope.getSubTabs = function (tab) {
-        return tab === null ? [] : tab.type === 'c' ? tab.categories : tab.locations;
-    };
-    var createAssociationKey = function (tab, subtab) {
-        if (tab === null || subtab === null) {
-            return '';
+    $scope.associationKey = function () {
+        console.log($scope);
+        console.log('Making association key.');
+        var key = 'no-association';
+        if ($scope.associatedTab !== null && $scope.associatedCategory !== null) {
+            key = $scope.associatedTab.id + '.' + $scope.associatedCategory.id;
         }
-        return tab.id + ':' + subtab.id;
-    };
-    $scope.associate = function (attribute) {
-//        console.log(attribute);
-        var index;
-        var key = createAssociationKey($scope.appearanceSelectedTab, $scope.appearanceSelectedSubTab);
-        index = attribute.appearance.indexOf(key);
-        if (index === -1 && attribute.check) {
-            attribute.appearance.push(key);
-        } else if (index !== -1 && !attribute.check) {
-            attribute.appearance.splice(index, 1);
-        }
+        console.log('--- key: ' + key);
+        return key;
     };
 
-    var hasAssociation = function (attribute) {
-        console.log("Checking appearance");
-        console.log(attribute);
-        console.log($scope.selectedItem);
-        var selectedTab = $scope.tabs[$scope.selectedItem.tab]
-        var key = createAssociationKey(selectedTab,
-                                       selectedTab.categories[$scope.selectedItem[$scope.categorySelectionKey($scope.selectedItem.tab)]]);
-        console.log("current selectedItem key: '" + key + "'.");
-        var result = attribute.appearance.indexOf(key) !== -1;
-        console.log(result);
-        return result;
-    };
-    $scope.hasAssociations = function (datum) {
-        return hasAssociation(datum.content) ||
-            hasAssociation(datum.description) ||
-            hasAssociation(datum.phone) ||
-            hasAssociation(datum.address1) ||
-            hasAssociation(datum.address2);
-    }
 
 };
