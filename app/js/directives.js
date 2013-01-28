@@ -55,7 +55,6 @@ angular.module('myApp.directives', []).
         return {
             link: function (scope, element) {
                 element.draggable({
-//                    appendTo: 'body',
                     helper: 'clone'
                 });
             }
@@ -93,12 +92,6 @@ angular.module('myApp.directives', []).
                         }
                         datum.attributes.push({ collectionName: collectionName, id: s5b.model.data[indexDatum][collectionName][indexAttribute].id });
 
-                        var daaatum = s5b.model.data[indexDatum];
-
-                        s5b.model.associations[associationKey] = s5b.model.associations[associationKey] || [];
-                        s5b.model.associations[associationKey].push({ idDatum: daaatum.id, collectionName: collectionName, idAttribute: daaatum[collectionName][indexAttribute].id });
-
-//                        console.log('APPLYING');
                         scope.$apply();
                     }
                 }).sortable({

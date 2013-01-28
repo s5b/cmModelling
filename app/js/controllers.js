@@ -6,7 +6,7 @@ s5b.model.uniqueIdentifier = 0;
 
 s5b.model.tabs = [];
 s5b.model.data = [];
-s5b.model.associations = {};
+//s5b.model.associations = {};
 
 s5b.utility = {};
 s5b.utility.findById = function (sourceArray, value) {
@@ -174,8 +174,6 @@ s5b.uberController = function ($scope) {
         var associatedDatum, index;
         if ($scope.associatedCategory !== null) {
             associatedDatum = s5b.utility.findById($scope.associatedCategory.data, $scope.data[$scope.selectedItem[$scope.datumSelectionKey()]].id);
-            console.log('-- associatedDatum');
-            console.log(associatedDatum);
             if (associatedDatum !== null) {
                 for (index = 0; index < associatedDatum.attributes.length; index += 1) {
                     result.push(s5b.utility.findById($scope.data[$scope.selectedItem[$scope.datumSelectionKey()]][associatedDatum.attributes[index].collectionName],
@@ -189,8 +187,6 @@ s5b.uberController = function ($scope) {
     $scope.getDisplayAttributes = function (displayDatum) {
         var result = [];
         var index, datum;
-        console.log('-- displayDatum');
-        console.log(displayDatum);
         if (displayDatum) {
             datum = s5b.utility.findById($scope.data, displayDatum.id);
             if (datum) {
@@ -201,54 +197,5 @@ s5b.uberController = function ($scope) {
         }
         return result;
     };
-
-
-
-
-
-
-
-
-    var scopedAssociationKey = function (tab, category) {
-        var key = 'no-association';
-        if (tab !== null && category !== null) {
-            key = s5b.associationKey(tab.id, category.id);
-        }
-        return key;
-    };
-    $scope.associationKey = function (context) {
-//        console.log('-- associationKey: ' + context);
-//        console.log($scope);
-        return scopedAssociationKey($scope.associatedTab, $scope.associatedCategory);
-    };
-    $scope.associationContentKey = function (tab, category) {
-//        console.log('-- associationContentKey');
-//        console.log(tab);
-//        console.log(category);
-        return scopedAssociationKey(tab, category);
-    };
-
-    $scope.attributeByAssociation = function (association) {
-        var index, datum, collection;
-        var found = false;
-        for (index = 0; index < $scope.data.length; index += 1) {
-            if ($scope.data[index].id === association.idDatum) {
-                found = true;
-                datum = $scope.data[index];
-                break;
-            }
-        }
-        if (!found) {
-            return {};
-        }
-        collection = datum[association.collectionName];
-        for (index = 0; index < collection.length; index += 1) {
-            if (collection[index].id == association.idAttribute) {
-                return collection[index];
-            }
-        }
-        return {};
-    }
-
 
 };

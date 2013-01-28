@@ -179,16 +179,15 @@
                                 <li ng-repeat="attribute in getDisplayAttributes(associatedDatum)">
                                     <div class="arrangedAttribute">
                                         <div ng-show="attribute.type == 'text'">
-                                            <p>{{attribute.content}}</p>
+                                            {{attribute.content}}
                                         </div>
                                         <div ng-show="attribute.type == 'telecom'">
-                                            {{attribute.content.type}} :
-                                            Number: {{attribute.content.number}}
+                                            {{attribute.content.type}} : {{attribute.content.number}}
                                         </div>
                                         <div ng-show="attribute.type == 'digitalPresence'">
                                             <a target="_blank" href="{{attribute.content.url}}">{{attribute.content.label}}</a>
                                         </div>
-                                        <div ng-show="association.collectionName == 'addresse'">
+                                        <div ng-show="attribute.type == 'address'">
                                             {{attribute.content.street}}<br/>
                                             {{attribute.content.suburb}} {{attribute.content.state}} {{attribute.content.postcode}}
                                         </div>
