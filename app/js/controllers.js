@@ -3,10 +3,8 @@
 s5b.model = {};
 
 s5b.model.uniqueIdentifier = 0;
-
 s5b.model.tabs = [];
 s5b.model.data = [];
-//s5b.model.associations = {};
 
 s5b.utility = {};
 s5b.utility.findById = function (sourceArray, value) {
@@ -18,7 +16,64 @@ s5b.utility.findById = function (sourceArray, value) {
     }
     return null;
 };
-
+s5b.utility.nextId = function () {
+    s5b.model.uniqueIdentifier += 1;
+    return s5b.model.uniqueIdentifier;
+};
+s5b.utility.createEntity = function (theType, theLabel, theContent) {
+    var id = s5b.utility.nextId();
+    var type = theType;
+    var label = initialLabel;
+    var children = {};
+    return {
+        getId: function () {
+            return id;
+        },
+        getType: function () {
+            return type;
+        },
+        getLabel: function () {
+            return label;
+        },
+        getContent: function () {
+            return content;
+        },
+        setLabel: function (newLabel) {
+            label = newLabel;
+        },
+        getChildrenIterator: function () {
+            var childId, position = -1, childrenList = [];
+            // Make the iterator immune to changes during iteration by taking a copy of the children collection.
+            for (childId in children) {
+                if (children.hasOwnProperty(childId)) {
+                    childrenList.push(children[childId]);
+                }
+            }
+            return {
+                hasNext: function () {
+                    return position >= childrenList.length;
+                },
+                getNext: function () {
+                    position += 1
+                    return (position >= childrenList.length) ? null : childrenList[position];
+                }
+            }
+        },
+        addChild: function (newChild) {
+            children[newChild.getId()] = {
+                getId: function () {
+                    return newChild.getId();
+                },
+                getType: function () {
+                    return newChild.getType()
+                }
+            }
+        },
+        removeChild: function (deleteChild) {
+            delete children[deleteChild.getId()];
+        }
+    }
+};
 
 s5b.associationKey = function (idTab, idCategory) {
     return idTab + '|' + idCategory;
@@ -28,13 +83,6 @@ s5b.associationKey = function (idTab, idCategory) {
 /* Controllers */
 
 s5b.uberController = function ($scope) {
-
-    // *** Utility ***
-
-    var nextId = function () {
-        s5b.model.uniqueIdentifier += 1;
-        return s5b.model.uniqueIdentifier;
-    };
 
     // *** Edit / Preview ***
 
@@ -67,7 +115,7 @@ s5b.uberController = function ($scope) {
     $scope.newTabDefinition = $scope.tabTypes[1];
 
     var createNewTab = function (tabs) {
-        var newTab = { id: nextId(tabs), type: $scope.newTabDefinition.type, content: $scope.newTabDefinition.content };
+        var newTab = { id: s5b.utility.nextId(), type: $scope.newTabDefinition.type, content: $scope.newTabDefinition.content };
         if (newTab.type === 'c') {
             newTab.categories = [];
         }
@@ -85,7 +133,7 @@ s5b.uberController = function ($scope) {
     // *** Categories ***
 
     var createNewCategory = function(categories) {
-        var newId = nextId(categories);
+        var newId = s5b.utility.nextId();
         return { id: newId, content: 'unnamed_category', data: [] };
     };
     $scope.categorySelectionKey = function (index) {
@@ -99,7 +147,7 @@ s5b.uberController = function ($scope) {
     // *** Locations ***
 
     var createNewLocation = function(locations) {
-        var newId = nextId(locations);
+        var newId = s5b.utility.nextId();
         return { id: newId, title: 'Location_' + newId, selected: false };
     };
     $scope.locationSelectionKey = function (index) {
@@ -114,7 +162,7 @@ s5b.uberController = function ($scope) {
 
     $scope.data = s5b.model.data;
     var createNewDatum = function(data) {
-        var newId = nextId(data);
+        var newId = s5b.utility.nextId();
         return {
             id: newId,
             content: 'unnamed_presence',
@@ -135,19 +183,19 @@ s5b.uberController = function ($scope) {
     // *** Data - attribute - creation ***
 
     $scope.createText = function (texts) {
-        return { type: 'text', id: nextId(texts), content: '' };
+        return { type: 'text', id: s5b.utility.nextId(), content: '' };
     };
 
     $scope.createTelecom = function (telecoms) {
-        return { type: 'telecom', id: nextId(telecoms), content: { type: 'phone', number: '' } };
+        return { type: 'telecom', id: s5b.utility.nextId(), content: { type: 'phone', number: '' } };
     };
 
     $scope.createAddress = function (addresses) {
-        return { type: 'address', id: nextId(addresses), content: { street: '', suburb: '', state: '', postcode: '' } };
+        return { type: 'address', id: s5b.utility.nextId(), content: { street: '', suburb: '', state: '', postcode: '' } };
     };
 
     $scope.createDigitalPresence = function (digitalPresences) {
-        return { type: 'digitalPresence', id: nextId(digitalPresences), content: { label: '', url: '' } };
+        return { type: 'digitalPresence', id: s5b.utility.nextId(), content: { label: '', url: '' } };
     };
 
     // *** Data - attribute - collection mutation.

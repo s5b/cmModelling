@@ -3,6 +3,11 @@ cmModelling
 
 AngularJS modelling prototype for content management application.
 
+You will need to install node to "serve" the application - though not strictly necessary.
+
+Run the application: ./scripts/web_server
+In browser: http://localhost:8000/app/index.html
+
 TODO
 ----
 

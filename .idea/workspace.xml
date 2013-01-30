@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3602af16-0430-46de-a84e-ffcb6f99e526" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/img/icons/unlink-cut.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/img/icons/unlink.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/app.css" afterPath="$PROJECT_DIR$/app/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/js/controllers.js" afterPath="$PROJECT_DIR$/app/js/controllers.js" />
     </list>
     <ignored path="modelling.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -15,11 +11,11 @@
     <file path="/index.html" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359405845864" ignored="false" />
     <file path="/dummy.xml" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359016442938" ignored="false" />
     <file path="/app.js" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359054651966" ignored="false" />
-    <file path="/controllers.js" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359403894287" ignored="false" />
+    <file path="/controllers.js" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359457207533" ignored="false" />
     <file path="/app.css" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359406017774" ignored="false" />
     <file path="/directives.js" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359402709247" ignored="false" />
     <file path="/a.dummy" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359378115538" ignored="false" />
-    <file path="/README.md" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359406756635" ignored="false" />
+    <file path="/README.md" changelist="3602af16-0430-46de-a84e-ffcb6f99e526" time="1359578977467" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +79,7 @@
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="130" column="80" selection-start="9094" selection-end="9094" vertical-scroll-proportion="-11.875">
+                <state line="130" column="80" selection-start="9094" selection-end="9094" vertical-scroll-proportion="-81.25">
                   <folding />
                 </state>
               </provider>
@@ -101,7 +97,7 @@
           <file leaf-file-name="controllers.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/app/js/controllers.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="214" column="0" selection-start="6832" selection-end="6965" vertical-scroll-proportion="0.0">
+                <state line="117" column="45" selection-start="3316" selection-end="3322" vertical-scroll-proportion="-8.153846">
                   <folding />
                 </state>
               </provider>
@@ -110,7 +106,7 @@
           <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/README.md">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="16" column="46" selection-start="539" selection-end="539" vertical-scroll-proportion="0.36474165">
+                <state line="8" column="48" selection-start="273" selection-end="273" vertical-scroll-proportion="0.32085562">
                   <folding />
                 </state>
               </provider>
@@ -143,7 +139,7 @@
           <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/app/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="142" column="58" selection-start="10005" selection-end="10005" vertical-scroll-proportion="0.43074003">
+                <state line="142" column="58" selection-start="10005" selection-end="10005" vertical-scroll-proportion="0.80212015">
                   <folding />
                 </state>
               </provider>
@@ -171,9 +167,9 @@
       <list>
         <option value="$PROJECT_DIR$/app/js/app.js" />
         <option value="$PROJECT_DIR$/app/js/directives.js" />
-        <option value="$PROJECT_DIR$/app/js/controllers.js" />
         <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/css/app.css" />
+        <option value="$PROJECT_DIR$/app/js/controllers.js" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -182,7 +178,7 @@
     <option name="x" value="4" />
     <option name="y" value="22" />
     <option name="width" value="1602" />
-    <option name="height" value="1406" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -418,7 +414,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="22" width="1602" height="1406" extended-state="0" />
+    <frame x="4" y="22" width="1602" height="878" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -435,7 +431,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17673522" sideWeight="0.9992224" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17673522" sideWeight="0.9992296" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -590,20 +586,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/js/controllers.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="0" selection-start="6832" selection-end="6965" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="130" column="80" selection-start="9094" selection-end="9094" vertical-scroll-proportion="-11.875">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/css/app.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="315" column="16" selection-start="5123" selection-end="5123" vertical-scroll-proportion="0.0">
@@ -611,9 +593,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/js/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="45" selection-start="3316" selection-end="3322" vertical-scroll-proportion="-8.153846">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="80" selection-start="9094" selection-end="9094" vertical-scroll-proportion="-81.25">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="46" selection-start="539" selection-end="539" vertical-scroll-proportion="0.36474165">
+        <state line="8" column="48" selection-start="273" selection-end="273" vertical-scroll-proportion="0.32085562">
           <folding />
         </state>
       </provider>
